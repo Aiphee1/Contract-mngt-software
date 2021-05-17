@@ -1,0 +1,61 @@
+{% extends "lpo_app/base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="col-lg-18 mt-5">
+        <div class="jumbotron">
+            <h1 class="display-4">OML-34 JV A.M.T. Contracts</h1>
+            <p class="lead font-italic">List of all Contracts</p>
+            <hr class="my-4">
+
+<table class="table table-borderless">
+    <thead class="border-bottom font-weight-bold">
+        <tr>
+            <td>Contract Description</td>
+            <td>Contract Value</td>
+            <td>Currency</td>
+            <td>Vendor</td>
+            <td>Extract Number</td>
+            <td>Amt Date</td>        
+            <td>Decision</td>
+            <th><a href="{% url 'amt_insert' %}" class="btn btn-outline-success">
+                <i class="fas fa-plus"></i>Add New              
+                </a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for amt in amt_list %}
+        <tr>
+            <td>{{amt.contract_desc}}</td>
+            <td>{{amt.contract_value}}</td>
+            <td>{{amt.currency}}</td>
+            <td>{{amt.contractor}}</td>
+            <td>{{amt.listing_no}}</td>          
+            <td>{{amt.amt_date}}</td>          
+            <td>{{amt.remarks}}</td>
+            <td>              
+                <a href="{% url 'amt_update' amt.id %}" class="btn text-secondary px-0">
+                    <i class="far fa-edit fa-lg"></i>
+                </a>
+                <form action="{% url 'amt_delete' amt.id %}" method="post" class="d-inline">
+                    {% csrf_token %}
+                    <button onclick="return confirm('Are you sure you want to delete this record- {{amt.contract_desc}}?')" type="submit" class="btn">
+                        <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                    </button>
+                </form>      
+                          
+                
+            </td>           
+            
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>         
+            
+            
+        </div>        
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,59 @@
+{% extends "lpo_app/base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="col-lg-18 mt-5">
+        <div class="jumbotron">
+            <h1 class="display-4">OML-34 JV Service Orders</h1>
+            <p class="lead font-italic">List of all Service Orders</p>
+            <hr class="my-4">
+            
+<table class="table table-borderless">
+    <thead class="border-bottom font-weight-bold">
+        <tr>
+            <td>Order Description</td>
+            <td>Vendor</td>
+            <td>Order Number</td>
+            <td>Order Date</td>
+            <td>Validity Date</td>
+            <td>Order Value</td>
+            <td>Order Currency</td>
+            <td>Order Remarks</td>
+            <th><a href="{% url 'so_insert' %}" class="btn btn-outline-success">
+                <i class="fas fa-plus"></i>Add New               
+                </a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for so in so_list %}
+        <tr>
+            <td>{{so.order_desc}}</td>
+            <td>{{so.order_to}}</td>
+            <td>{{so.order_no}}</td>
+            <td>{{so.order_date}}</td>
+            <td>{{so.validity_date}}</td>
+            <td>{{so.order_value}}</td>
+            <td>{{so.currency}}</td>
+            <td>{{so.remarks}}</td>
+            <td>
+                <a href="{% url 'so_update' so.id %}" class="btn text-secondary px-0">
+                    <i class="far fa-edit fa-lg"></i>
+                </a>
+                <form action="{% url 'so_delete' so.id %}" method="post" class="d-inline">
+                    {% csrf_token %}
+                    <button onclick="return confirm('Are you sure you want to delete this record- {{so.order_desc}}?')" type="submit" class="btn">
+                        <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                    </button>
+                </form>                
+            </td>            
+            
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+        </div>        
+    </div>
+</div>
+
+{% endblock content %}

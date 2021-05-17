@@ -1,0 +1,49 @@
+{% extends "lpo_app/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+          
+<div class="container">
+    <div class="col-lg-18 mt-5">
+        <div class="jumbotron">
+            <h1 class="display-4">AMT Contract Approvals</h1>
+            <p class="lead font-italic">Please enter details of Contract</p>
+            <hr class="my-4">
+            <form action="" method="POST" autocomplete="on">
+                {% csrf_token %}
+                {{form.contract_desc|as_crispy_field}}
+                {{form.contractor|as_crispy_field}}
+                {{form.listing_no|as_crispy_field}}
+                <div class="row">
+                    <div class="col-md-4" class="input-group date" id="datetimepicker1">
+                        {{form.amt_date|as_crispy_field}}
+                    </div>                   
+                </div> 
+                <div class="row">
+                  <div class="col-md-4">
+                      {{form.contract_value|as_crispy_field}}
+                  </div>
+                  <div class="col-md-4">
+                    {{form.currency|as_crispy_field}}
+                 </div>
+              </div>
+              {{form.remarks|as_crispy_field}}
+
+              <div class="row">
+                  <div class="col-md-8">
+                      <button type="submit" class="btn btn-success btn-block btn-ld"><i class="fas fa-database"></i> Submit</button>                                
+                  </div>
+                  <div class="col-md-4">
+                      <a href="{% url 'amt_list' %}" class="btn btn-secondary btn-block btn-lg">
+                          <i class="fas fa-stream"></i> Back to AMT Contract List
+                      </a>
+                  </div>
+              </div>
+                                                        
+            </form>
+        </div>
+    </div>
+</div>
+ 
+                     
+{% endblock content %}
